@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+    before_action :authorized, only: [:create, :destroy]
+
     def index
         comments = Comment.all
         render json: comments

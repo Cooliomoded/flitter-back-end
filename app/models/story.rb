@@ -1,4 +1,5 @@
 class Story < ApplicationRecord
+    belongs_to :user
     has_many :comments
     has_many :story_genres
     has_many :genres, through: :story_genres

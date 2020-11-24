@@ -1,9 +1,7 @@
 class StoryGenresController < ApplicationController
+ 
+    before_action :authorized
 
-    def show
-
-    end
-    
     def create
         genre = StoryGenre.new(user_id: params[:user_id], story_id: params[:story_id])
         if genre.save

@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::API
 
+    before_action :authorized
+
     def encode_token(payload)
-        JWT.encode(token, 'coolguy')
+        JWT.encode(payload, 'coolguy')
     end
 
     def auth_header
-        request.headers('Authorization')
+        request.headers[:Authorization]
     end
 
     def decoded_token
@@ -27,7 +29,7 @@ class ApplicationController < ActionController::API
     end
 
     def logged_in?
-        !!loggen_in_user
+        !!logged_in_user
     end
 
     def authorized
