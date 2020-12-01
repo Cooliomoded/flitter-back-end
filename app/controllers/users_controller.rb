@@ -10,6 +10,18 @@ class UsersController < ApplicationController
     def profile
         render json: { user: UserSerializer.new(current_user) }, status: :accepted
     end
+
+    def update
+        user = User.find(params[:id])
+        user.update(user_params)
+        if user.valid?
+            token = encode_token(user_id: user.id)
+            render json: {user: UserSerializer.new(user), token: token}, status: :accepted
+        else
+            render json: {error: "Failed to update user"}
+        end
+
+    end
     
     def create
         user = User.new(user_params)
@@ -37,6 +49,6 @@ class UsersController < ApplicationController
 
     private
     def user_params 
-        params.require(:user).permit(:username, :password, :password_confirmation, :penname, :bio, :email, :picture)
+        params.require(:user).permit(:username, :password, :penname, :bio, :email, :picture)
     end
 end

@@ -1,5 +1,7 @@
 class GenresController < ApplicationController
 
+    skip_before_action :authorized
+
     def index
         genres = Genre.all
         render json: genres

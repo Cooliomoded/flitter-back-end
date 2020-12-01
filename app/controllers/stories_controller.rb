@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
 
-    before_action :authorized, only[:create]
+    skip_before_action :authorized, only: [:index, :show]
 
 
     def index
@@ -14,9 +14,9 @@ class StoriesController < ApplicationController
     end
 
     def create
-        story = Story.new(user_id: logged_in_user.id, story_id: params[:story_id])
+        story = Story.new(user_id: logged_in_user.id, title: params[:title], content: params[:content], reads: params[:reads], likes: params[:likes])
             if story.save
-                render json: {user: UserSerializer.new(user)}
+                render json: {story: StorySerializer.new(story)}
             else 
                 render json: {error: 'You are not authorized to author a story.'}
             end
