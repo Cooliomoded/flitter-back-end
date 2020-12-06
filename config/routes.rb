@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   post '/login', to: 'users#login'
   get '/initialFetch', to: 'users#initialFetch'
   post '/profile', to: 'users#show'
+  delete '/remove_genre', to: 'story_genres#removeGenre'
 end

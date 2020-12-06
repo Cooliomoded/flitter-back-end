@@ -9,13 +9,13 @@ class CommentsController < ApplicationController
 
     def show
         comment = Comment.find(params[:comment_id])
-        render json: comment
+        render json: {comment: CommentSerializer.new(comment)}, status: :accepted
     end
     
     def create
         comment = Comment.new(comment_params)
         if comment.save
-            render json: comment
+            render json: {comment: CommentSerializer.new(comment)}, status: :accepted
         else
             render json: {error: 'Your comment could not be posted.'}
         end
@@ -30,4 +30,9 @@ class CommentsController < ApplicationController
         end
     end
 
+    private
+
+    def comment_params 
+        params.require(:comment).permit(:user_id, :content, :story_id)
+    end
 end

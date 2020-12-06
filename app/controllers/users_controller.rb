@@ -7,10 +7,6 @@ class UsersController < ApplicationController
         render json: {user: UserSerializer.new(user)}
     end
 
-    def profile
-        render json: { user: UserSerializer.new(current_user) }, status: :accepted
-    end
-
     def update
         user = User.find(params[:id])
         user.update(user_params)
