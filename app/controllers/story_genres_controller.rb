@@ -22,6 +22,7 @@ class StoryGenresController < ApplicationController
     def removeGenre
         storyGenre = StoryGenre.where(story_id: genre_params[:story_id], genre_id: genre_params[:genre_id])
         storyGenre.first.destroy
+        render json: {message: 'Genre removed'}
     end
 
     def genre_params 
